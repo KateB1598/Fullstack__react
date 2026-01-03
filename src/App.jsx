@@ -1,11 +1,15 @@
+import About from "./components/About";
+import "./App.css";
 import { useState } from "react";
-import UserList from "./components/UserList";
+
 function App() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [counter, setCounter] = useState(0);
   return (
     <div>
-      <button onClick={() => setIsVisible(!isVisible)}>Toggle</button>
-      {isVisible && <UserList />}
+      <button onClick={() => setCounter(counter + 1)}>
+        Increment counter: {counter}
+      </button>
+      <About />
     </div>
   );
 }
