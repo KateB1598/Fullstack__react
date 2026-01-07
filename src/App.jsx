@@ -1,16 +1,37 @@
-import About from "./components/About";
+import { Link, Route, Routes } from "react-router";
 import "./App.css";
+import About from "./pages/About";
+import Main from "./pages/Main";
+import User from "./pages/User";
+import Users from "./pages/Users";
+import NotFound from "./pages/NotFound";
+import Admin from "./pages/Admin";
 import { useState } from "react";
 
 function App() {
-  const [counter, setCounter] = useState(0);
+  const [isAuth, setIsAuth] = useState(false);
   return (
-    <div>
-      <button onClick={() => setCounter(counter + 1)}>
-        Increment counter: {counter}
+    <>
+      <Link to="/">Main</Link>
+      <Link to="/about">About</Link>
+      <Link to="/users">Users</Link>
+      <Link to="/admin">Admin</Link>
+      <button onClick={() => setIsAuth(!isAuth)}>
+        {isAuth ? "Log out" : "Log in"}
       </button>
-      <About />
-    </div>
+      <div>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/users"></Route>
+          <Route path="/users/:userId" element={<User />} />
+          <Route path="/admin" element={<Admin isAuth={isAuth} />} />
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 
