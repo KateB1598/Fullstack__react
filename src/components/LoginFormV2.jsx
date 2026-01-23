@@ -1,12 +1,13 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
+import Input from "./Input";
 
 const loginFormSchema = z.object({
   username: z
     .string("Maє бути рядок")
-    .min("Min value is 4")
-    .max("Max value is 6"),
+    .min(4, "Min value is 4")
+    .max(6, "Max value is 6"),
   password: z
     .string("Maє бути рядок")
     .min(4, "Min value is 4")
@@ -15,9 +16,9 @@ const loginFormSchema = z.object({
 
 const LoginForm = () => {
   const {
-    register,
+    control,
     handleSubmit,
-    formState: { errors },
+    formState: { isValid },
   } = useForm({
     mode: "onBlur",
 
@@ -31,18 +32,24 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit(handleLoginFormSubmit)}>
       <div>
-        <input {...register("username")} type="text" placeholder="Username" />
-        {errors.username && <p>{errors.username.message}</p>}
+        <Input
+          name="username"
+          control={control}
+          type="text"
+          placeholder="Username"
+        />
       </div>
       <div>
-        <input
-          {...register("password")}
+        <Input
+          name="password"
+          control={control}
           type="password"
           placeholder="Password"
         />
-        {errors.password && <p>{errors.password.message}</p>}
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={!isValid}>
+        Submit
+      </button>
     </form>
   );
 };
