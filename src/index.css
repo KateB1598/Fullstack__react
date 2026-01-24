@@ -1,0 +1,8 @@
+body {
+    max-width: 600px;
+}
+
+.box {
+    padding: 20px;
+    border: 1 px solid black
+}

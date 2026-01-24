@@ -9,6 +9,9 @@ const counterSlace = createSlice({
     increment: (state) => {
       state.value = state.value + 1;
     },
+    incrementByValue: (state, action) => {
+      state.value = state.value + Number(action.payload);
+    },
     decrement: (state) => {
       state.value = state.value - 1;
     },
@@ -17,5 +20,6 @@ const counterSlace = createSlice({
     },
   },
 });
-export const { increment, decrement, reset } = counterSlace.actions;
+export const { increment, decrement, reset, incrementByValue } =
+  counterSlace.actions;
 export default counterSlace.reducer;
