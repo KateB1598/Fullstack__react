@@ -1,27 +1,14 @@
-import React, { useEffect, useState } from "react";
-import ProductCard from "../components/ProductCard";
-const Main = (props) => {
-  const { handleAddToCart } = props;
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    const getAllProducts = async () => {
-      const res = await fetch("https://dummyjson.com/products");
-      const data = await res.json();
-      setProducts(data.products);
-    };
+import useFetch from "../hooks/useFetch";
 
-    getAllProducts();
-  }, []);
-
+const Main = () => {
+  const { data = [] } = useFetch("https://jsonplaceholder.typicode.com/users");
   return (
-    <div className="product-grid">
-      {products.map((product) => (
-        <ProductCard
-          onClick={handleAddToCart}
-          product={product}
-          key={product.id}
-        />
-      ))}
+    <div>
+      <ul>
+        {data?.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
     </div>
   );
 };

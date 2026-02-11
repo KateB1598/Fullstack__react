@@ -1,20 +1,23 @@
-import React from "react";
-const Cart = (props) => {
-  const { state, handleRemoveItem } = props;
+import useFetch from "../hooks/useFetch";
+
+const Cart = () => {
+  const {
+    data = [],
+    isLoading,
+    error,
+  } = useFetch("https://jsonplaceholder.typicode.com/posts");
+
   return (
     <div>
-      {state.items.map((item) => (
-        <CartItem item={item} onRemove={handleRemoveItem} />
-      ))}
+      {error && <p>{error}</p>}
+      {isLoading && <h1>Loading ...</h1>}
+      <ul>
+        {data?.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
     </div>
   );
 };
-const CartItem = ({ item, onRemove }) => {
-  return (
-    <div className="cart-item">
-      <div>{item.title}</div>
-      <button onClick={() => onRemove(item.id)}>Remove</button>
-    </div>
-  );
-};
+
 export default Cart;
